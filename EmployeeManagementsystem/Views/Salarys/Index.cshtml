@@ -1,0 +1,88 @@
+﻿@page
+@model EmployeeManagementsystem.Views.Salarys.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search ...">
+    <button class="button" id="searchButton">Search</button>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Handle the click event of the search button
+            $("#searchButton").click(function () {
+                var searchValue = $("#searchInput").val().trim().toLowerCase();
+
+                // Loop through the table rows and hide/show based on the search value
+                $("table tbody tr").each(function () {
+                    var row = $(this);
+                    var matchFound = false;
+
+                    // Loop through each table cell in the row
+                    row.find("td").each(function () {
+                        var cellValue = $(this).text().toLowerCase();
+
+                        // Check if the cell value contains the search value
+                        if (cellValue.includes(searchValue)) {
+                            matchFound = true;
+                            return false; // Exit the cell loop
+                        }
+                    });
+
+                    // Show or hide the row based on the match
+                    if (matchFound) {
+                        row.show();
+                    } else {
+                        row.hide();
+                    }
+                });
+            });
+        });
+    </script>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary[0].EmployeeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary[0].SalaryAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary[0].EffectiveDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Salary) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalaryAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectiveDate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.SalaryID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.SalaryID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.SalaryID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

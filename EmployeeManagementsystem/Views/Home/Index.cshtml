@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Employee Management Home";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('https://i.imgur.com/di8vogk.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .jumbotron {
+            background-color: rgba(233, 239, 245, 0.7);
+            color: #495057;
+            padding: 6rem 2rem; /* Increased padding for a more spacious look */
+            border-radius: 0;
+            text-align: center;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+            .jumbotron h1 {
+                font-size: 3.5rem; /* Larger font size for the main heading */
+                margin-top: 1.5rem;
+                font-weight: bold; /* Adding bold font weight */
+            }
+
+            .jumbotron p {
+                font-size: 1.5rem; /* Larger font size for the welcome text */
+                margin-top: 2rem;
+                color: #777; /* Slightly muted text color */
+            }
+    </style>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to <span class="text-primary">Employee Management</span></h1>
+        <p class="lead">Efficiently manage your workforce with our powerful tools</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿@model paginated_list<EmployeeManagementsystem.Models.Salary>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Salary</h1>
+
+<p>
+    <a asp-action="Create"><i class="fa fa-add"></i>Create New</a>
+</p>
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search ...">
+    <button class="button" id="searchButton">Search</button>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Handle the click event of the search button
+            $("#searchButton").click(function () {
+                var searchValue = $("#searchInput").val().trim().toLowerCase();
+
+                // Loop through the table rows and hide/show based on the search value
+                $("table tbody tr").each(function () {
+                    var row = $(this);
+                    var matchFound = false;
+
+                    // Loop through each table cell in the row
+                    row.find("td").each(function () {
+                        var cellValue = $(this).text().toLowerCase();
+
+                        // Check if the cell value contains the search value
+                        if (cellValue.includes(searchValue)) {
+                            matchFound = true;
+                            return false; // Exit the cell loop
+                        }
+                    });
+
+                    // Show or hide the row based on the match
+                    if (matchFound) {
+                        row.show();
+                    } else {
+                        row.hide();
+                    }
+                });
+            });
+        });
+    </script>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                EmployeeID
+            </th>
+            <th>
+                SalaryAmount
+            </th>
+            <th>
+                EffectiveDate
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalaryAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectiveDate)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.SalaryID" class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.SalaryID" class="btn btn-secondary"><i class="fa fa-eye"></i>Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.SalaryID" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.PreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.NextPage ? "disabled" : "";
+
+}
+<a asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   class="btn btn-default @prevDisabled">
+    previous
+</a>
+<a asp-action="Index"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
